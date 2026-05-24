@@ -135,6 +135,7 @@ Reserved for a future Streamlit web app that wraps the trained model in a browse
 | `Watches.csv.zip`     | Same dataset, zipped (\~7 MB).              |
 | `README.md`           | This file.                                  |
 | `requirements.txt`    | Python packages needed to run the notebook. |
+| `AI_reflection.md`    | Reflection on how AI tools were used during the project. |
 
 ------------------------------------------------------------------------
 

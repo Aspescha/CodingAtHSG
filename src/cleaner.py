@@ -176,17 +176,17 @@ class WatchDataCleaner:
             Rounded case diameter in mm, or None if no plausible value found.
         """
         if pd.isna(value):
-            return pd.NA
+            return None
 
         text = str(value).lower().strip().replace(",", ".")
 
         if text in ("", "nan", "none", "<na>", "unknown"):
-            return pd.NA
+            return None
 
         numbers = [float(n) for n in re.findall(r"\d+(?:\.\d+)?", text)]
         plausible = [n for n in numbers if 20 <= n <= 60]
 
         if not plausible:
-            return pd.NA
+            return None
 
         return int(round(plausible[0]))

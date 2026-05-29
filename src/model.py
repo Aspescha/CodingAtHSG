@@ -68,6 +68,7 @@ class WatchPriceModel:
 
     def __init__(self):
         self._pipeline: Pipeline | None = None
+        self._ridge_pipeline: Pipeline | None = None
         self._X_train: pd.DataFrame | None = None
         self._y_train: pd.Series | None = None
         self._X_test: pd.DataFrame | None = None
@@ -327,9 +328,12 @@ class WatchPriceModel:
             raise RuntimeError("Nothing to save. Call fit() first.")
 
         joblib.dump({
-            "pipeline":   self._pipeline,
-            "X_train":    self._X_train,
-            "watch_data": self._watch_data,
+            "pipeline":        self._pipeline,
+            "ridge_pipeline":  self._ridge_pipeline,
+            "X_train":         self._X_train,
+            "X_test":          self._X_test,
+            "y_test":          self._y_test,
+            "watch_data":      self._watch_data,
         }, filepath)
         print(f"Model saved to {filepath}")
 
@@ -343,9 +347,12 @@ class WatchPriceModel:
             Path to the saved model file.
         """
         checkpoint = joblib.load(filepath)
-        self._pipeline   = checkpoint["pipeline"]
-        self._X_train    = checkpoint["X_train"]
-        self._watch_data = checkpoint["watch_data"]
+        self._pipeline        = checkpoint["pipeline"]
+        self._ridge_pipeline  = checkpoint["ridge_pipeline"]
+        self._X_train         = checkpoint["X_train"]
+        self._X_test          = checkpoint["X_test"]
+        self._y_test          = checkpoint["y_test"]
+        self._watch_data      = checkpoint["watch_data"]
         print(f"Model loaded from {filepath}")
 
     # ------------------------------------------------------------------

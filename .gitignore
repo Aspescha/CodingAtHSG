@@ -1,0 +1,19 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Trained model (too large for GitHub — run train.py to generate)
+models/*.joblib
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Environment
+.env
+*.env
+
+# OS files
+.DS_Store
+Thumbs.db

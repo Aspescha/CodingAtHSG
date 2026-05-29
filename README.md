@@ -51,21 +51,17 @@ cd CodingAtHSG
 pip install -r requirements.txt
 ```
 
-### 2. Train and save the model (optional)
+### 2. Train and save the model
 
-A pre-trained model is already included in the repository at 
-`models/watch_price_model.joblib`, so you can skip this step and 
-go straight to launching the app.
-
-If you want to retrain the model yourself — for example to verify 
-the results or experiment with different hyperparameters — run:
+This step trains the XGBoost model and saves it to disk. It takes 
+roughly 2–5 minutes depending on your machine.
 
 ```bash
 python train.py
 ```
 
-This takes roughly 2–5 minutes depending on your machine and 
-overwrites the saved model file.
+The trained model is saved to `models/watch_price_model.joblib`. 
+You only need to do this once.
 
 ### 3. Launch the Streamlit app
 

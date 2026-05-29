@@ -63,6 +63,27 @@ options = model.get_valid_options()
 
 st.divider()
 
+with st.expander("⚠️ How to get reliable predictions — read before using"):
+    st.markdown("""
+    **This model works best for:**
+    - Well-known brands (Rolex, Omega, Seiko, Breitling, TAG Heuer, etc.)
+    - Common models with many listings on the secondary market
+    - Standard case and bracelet materials (Steel, Gold, Titanium)
+    - Realistic conditions: **Good**, **Very Good**, or **Mint**
+    - Production years between 1980 and 2023
+
+    **This model will produce unreliable results for:**
+    - Rare, vintage, or highly collectible watches with few market listings
+    - **Unworn** or **Poor** condition — very few transactions exist for these
+    - Unusual material combinations (e.g. platinum, ceramic)
+    - Made-up or obscure brand/model combinations not in the training data
+    - Ultra-high-end watches (>$100,000) — these are underrepresented in the data
+
+    **Why?** The model was trained on publicly listed secondary market prices.
+    Watches that are rarely traded, withheld with "Price on request", or at the 
+    extremes of the market are systematically underrepresented in the training data.
+    """)
+
 # ------------------------------------------------------------------
 # Input form
 # ------------------------------------------------------------------

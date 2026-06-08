@@ -90,7 +90,7 @@ st.markdown("""
 }
 .hero-sub {
     font-size: 0.75rem;
-    color: #3A3A3A;
+    color: #555;
     letter-spacing: 0.08em;
 }
 
@@ -102,17 +102,31 @@ st.markdown("""
     text-transform: uppercase;
     margin-bottom: 1rem;
     margin-top: 2rem;
-    border-top: 1px solid #141414;
     padding-top: 1.5rem;
     font-family: 'Inter', sans-serif;
+    position: relative;
+}
+.section-label::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(200,169,110,0.35) 50%, transparent 100%);
 }
 
 /* Result */
 .result-wrap {
     margin-top: 2.5rem;
-    border-top: 1px solid #161616;
     padding-top: 2.5rem;
     text-align: center;
+    position: relative;
+}
+.result-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(200,169,110,0.35) 50%, transparent 100%);
 }
 .result-eyebrow {
     font-size: 0.6rem;
@@ -124,8 +138,27 @@ st.markdown("""
 .result-price-wrap {
     position: relative;
     display: inline-block;
-    overflow: hidden;
+    padding: 1.2rem 1.8rem;
 }
+.result-price-wrap::before,
+.result-price-wrap::after {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    border-color: rgba(200,169,110,0.5);
+    border-style: solid;
+}
+.result-price-wrap::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.result-price-wrap::after  { top: 0; right: 0; border-width: 1px 1px 0 0; }
+.corner-bl, .corner-br {
+    position: absolute;
+    width: 14px; height: 14px;
+    border-color: rgba(200,169,110,0.5);
+    border-style: solid;
+    pointer-events: none;
+}
+.corner-bl { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+.corner-br { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
 .result-price {
     font-family: 'Cormorant Garamond', serif;
     font-size: 5rem;
@@ -158,7 +191,7 @@ st.markdown("""
 }
 .result-range {
     font-size: 0.72rem;
-    color: #333;
+    color: #555;
     margin-top: 0.75rem;
     letter-spacing: 0.06em;
 }
@@ -184,7 +217,7 @@ st.markdown("""
 /* Section note */
 .section-note {
     font-size: 0.66rem;
-    color: #2A2A2A;
+    color: #555;
     letter-spacing: 0.04em;
     text-transform: none;
     margin-top: 0.3rem;
@@ -202,7 +235,80 @@ st.markdown("""
 }
 .insight-sub { font-size: 0.7rem; color: #444; letter-spacing: 0.06em; margin-bottom: 2rem; }
 .insight-section { margin-top: 2.5rem; border-top: 1px solid #141414; padding-top: 1.5rem; }
+
+/* Crystal glow */
+[data-testid="stAppViewContainer"]::after {
+    content: '';
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw; height: 70vh;
+    background: radial-gradient(ellipse at center, rgba(200,169,110,0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Film grain */
+[data-testid="stAppViewContainer"]::before {
+    content: '';
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 9999;
+    animation: grain 6s steps(6) infinite;
+}
+@keyframes grain {
+    0%   { transform: translate(0, 0); }
+    17%  { transform: translate(-2%, -2%); }
+    33%  { transform: translate(2%, 2%); }
+    50%  { transform: translate(-1%, 1%); }
+    67%  { transform: translate(1%, -1%); }
+    83%  { transform: translate(-2%, 1%); }
+    100% { transform: translate(0, 0); }
+}
 </style>
+""", unsafe_allow_html=True)
+
+# ── Background watch face ──────────────────────────────────────────────────────
+st.markdown("""
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"
+     style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+            width:65vmin;height:65vmin;opacity:0.06;pointer-events:none;z-index:0;">
+  <circle cx="100" cy="100" r="97" fill="none" stroke="#F5F0E8" stroke-width="0.4"/>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#F5F0E8" stroke-width="0.8"/>
+  <circle cx="100" cy="100" r="85" fill="none" stroke="#F5F0E8" stroke-width="0.3"/>
+  <g stroke="#F5F0E8" stroke-linecap="round">
+    <line x1="100" y1="11" x2="100" y2="24" stroke-width="2.5"/>
+    <line x1="100" y1="11" x2="100" y2="24" stroke-width="2.5" transform="rotate(90 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="24" stroke-width="2.5" transform="rotate(180 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="24" stroke-width="2.5" transform="rotate(270 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="19" stroke-width="1.2" transform="rotate(30 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="19" stroke-width="1.2" transform="rotate(60 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="19" stroke-width="1.2" transform="rotate(120 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="19" stroke-width="1.2" transform="rotate(150 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="19" stroke-width="1.2" transform="rotate(210 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="19" stroke-width="1.2" transform="rotate(240 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="19" stroke-width="1.2" transform="rotate(300 100 100)"/>
+    <line x1="100" y1="11" x2="100" y2="19" stroke-width="1.2" transform="rotate(330 100 100)"/>
+  </g>
+  <line x1="100" y1="100" x2="100" y2="44" stroke="#F5F0E8" stroke-width="1.8" stroke-linecap="round">
+    <animateTransform attributeName="transform" type="rotate"
+      from="0 100 100" to="360 100 100" dur="43200s" repeatCount="indefinite"/>
+  </line>
+  <line x1="100" y1="105" x2="100" y2="20" stroke="#F5F0E8" stroke-width="1" stroke-linecap="round">
+    <animateTransform attributeName="transform" type="rotate"
+      from="0 100 100" to="360 100 100" dur="3600s" repeatCount="indefinite"/>
+  </line>
+  <line x1="100" y1="115" x2="100" y2="15" stroke="#C8A96E" stroke-width="0.5" stroke-linecap="round">
+    <animateTransform attributeName="transform" type="rotate"
+      from="0 100 100" to="360 100 100" dur="60s" repeatCount="indefinite"/>
+  </line>
+  <circle cx="100" cy="100" r="3" fill="#F5F0E8"/>
+  <circle cx="100" cy="100" r="1.5" fill="#C8A96E"/>
+</svg>
 """, unsafe_allow_html=True)
 
 # ── Data ──────────────────────────────────────────────────────────────────────
@@ -316,7 +422,6 @@ with tab1:
                                help="Year of production. Defaults to 2015 if left blank.")
 
     if st.button("Estimate Price"):
-        # Brand and Model are required — everything else uses most common value if empty
         missing = []
         if brand == PLACEHOLDER:       missing.append("Brand")
         if watch_model == PLACEHOLDER: missing.append("Model")
@@ -324,7 +429,6 @@ with tab1:
         if missing:
             st.markdown(f'<div class="warning-box"><div class="warning-text">Please select: {", ".join(missing)}</div></div>', unsafe_allow_html=True)
         else:
-            # Impute missing fields with most frequent values from dataset
             use_movement          = movement if movement != PLACEHOLDER else 'Automatic'
             use_case_material     = case_material if case_material != PLACEHOLDER else 'Steel'
             use_bracelet_material = bracelet_material if bracelet_material != PLACEHOLDER else 'Steel'
@@ -368,6 +472,8 @@ with tab1:
             <div class="result-wrap">
                 <div class="result-eyebrow">Estimated Market Value</div>
                 <div class="result-price-wrap">
+                    <span class="corner-bl"></span>
+                    <span class="corner-br"></span>
                     <div class="result-price shine">${price:,.0f}</div>
                 </div>
                 <div class="result-category" style="border-color:{cat_color}; color:{cat_color};">{cat_label}</div>
